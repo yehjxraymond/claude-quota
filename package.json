@@ -1,0 +1,14 @@
+{
+  "name": "claude-quota",
+  "version": "1.0.0",
+  "description": "Query Claude Code 5-hour and weekly subscription quota from the CLI's OAuth credentials.",
+  "type": "module",
+  "bin": { "claude-quota": "./claude-quota.ts" },
+  "scripts": {
+    "start": "tsx claude-quota.ts",
+    "json": "tsx claude-quota.ts --json"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}
