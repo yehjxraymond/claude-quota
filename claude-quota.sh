@@ -105,22 +105,25 @@ JQ_HELPERS='
 
 # ---- output modes ----------------------------------------------------------
 mode="${1:-full}"
+NOW_STR="$(date '+%-I:%M %p' | tr 'A-Z' 'a-z')"   # e.g. "11:06 pm" (local machine time)
 case "$mode" in
   --json)
     jq . <<<"$USAGE" ;;
 
   --short|-s)
-    jq -r "$JQ_HELPERS"'
+    jq -r --arg now "$NOW_STR" "$JQ_HELPERS"'
       [ (if .five_hour then "5h:\(.five_hour|left|floor)% left (\(human(secs(.five_hour.resets_at))))" else empty end),
-        (if .seven_day then "7d:\(.seven_day|left|floor)% left (\(human(secs(.seven_day.resets_at))))" else empty end)
+        (if .seven_day then "7d:\(.seven_day|left|floor)% left (\(human(secs(.seven_day.resets_at))))" else empty end),
+        "now \($now)"
       ] | join("  ·  ")' <<<"$USAGE" ;;
 
   full|"")
-    jq -r "$JQ_HELPERS"'
+    jq -r --arg now "$NOW_STR" "$JQ_HELPERS"'
       def bar(u): (u/5|floor) as $f | ("█"*$f) + ("░"*(20-$f));
       def row(lbl;w): if w==null then "  \(lbl|.+" "*(16-length))(not active)"
         else "  \(lbl|.+" "*(16-length))\(bar(w.utilization))  \((w|left|floor)|tostring|(" "*(3-length))+.)% left  (used \(w.utilization|floor)%)  resets in \(human(secs(w.resets_at)))" end;
       "\n  Claude Code quota",
+      "  Current Time: \($now)",
       "  " + ("─"*70),
       row("5-hour session"; .five_hour),
       row("7-day (all)";    .seven_day),

@@ -7,7 +7,7 @@ overage credits.
 
 ```
   Claude Code quota
-  plan: max (default_claude_max_5x)
+  Current Time: 11:07 pm
   ──────────────────────────────────────────────────────────────────────
   5-hour session   ███░░░░░░░░░░░░░░░░░   83% left  (used 17%)  resets in 2h 21m
   7-day (all)      ███░░░░░░░░░░░░░░░░░   85% left  (used 15%)  resets in 82h 31m
@@ -69,7 +69,7 @@ Dependencies: `curl` and `jq` (plus `security`, built in on macOS).
 
 ```bash
 claude-quota            # full readable report
-claude-quota --short    # one line: 5h:83% left (2h21m)  ·  7d:85% left (3d10h)
+claude-quota --short    # one line: 5h:83% left (2h21m)  ·  7d:85% left (3d10h)  ·  now 11:07 pm
 claude-quota --json     # raw API payload (for scripting)
 ```
 
